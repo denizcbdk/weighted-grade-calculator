@@ -29,6 +29,90 @@ button:hover {
     background-color: #EDEDED;
 }
 
+/* For mobile phones up to 600px */
+@media (max-width: 600px) { 
+    #resultList{
+        padding: 0;
+    }
+    .rTitle{
+        padding: 7;
+    }
+    .layout {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+    .actTab {
+        width: 80%;
+        max-width: 450px;
+        padding: 20px;
+        margin: 20px auto;
+    }
+    .sidebar {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+    .content {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0 10px;
+    }
+    button {
+        width: 100%;
+        font-size: 18px;
+        max-width: 100px;
+    }
+    input {
+        width: 100%;
+        font-size: 18px;
+        max-width: 50px;
+        text-align: center;
+    }
+    h1 {
+        font-size: 22px;
+    }
+    .records {
+    width: 80%;
+    max-width: 450px;
+    padding: 20px;
+    margin: 20px auto;
+    }
+}
+/* For tablet devices up to 1024px */
+@media (min-width: 600px) and (max-width: 1024px) {
+    .layout {
+        flex-direction: column;
+        padding: 20px;
+    }
+    .sidebar {
+        display: none;
+    }
+    .content {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    button {
+        width: 100%;
+        font-size: 18px;
+        max-width: 100px;
+    }
+    input{
+        width: 100%;
+        font-size: 18px;
+        max-width: 50px;
+    }
+    #resultList {
+        padding: 0;
+    }
+    .rTitle {
+        padding: 7;
+    }
+}
+
 #popup {
     display: none;
     position: fixed;
@@ -137,5 +221,4 @@ button:hover {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     height: 800px;
     display: none;
-
 }
