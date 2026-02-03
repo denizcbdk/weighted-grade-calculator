@@ -2,7 +2,7 @@
     <head>
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Midterm Final Average Calculation Tool</title>
+    <title>Weighted Grade Calculator</title>
     </head>
     <body>
         <div class="layout">
@@ -12,10 +12,19 @@
                 <div class="actTab">
                     <form onsubmit="checkingRates(event)">
                         <h1>Grade Calculator (Midterm + Final)</h1>
-                        <p>Your midterm score: <input type="number" id="midterm" min="0" max="100" required></p>
+                        <p>Number of midterms:</p>
+                        <div class="input_title" style="display: flex; gap: 15px;">
+                        <label><input type="radio" class="midterm_radio" name="midterm_choice" value="1" checked onchange="updateMidterm(),updateWeights()"> 1</label>
+                        <label><input type="radio" class="midterm_radio" name="midterm_choice" value="2"onchange="updateMidterm(),updateWeights()"> 2</label>
+                        <label><input type="radio" class="midterm_radio" name="midterm_choice" value="3"onchange="updateMidterm(),updateWeights()"> 3</label>
+                        </div>
+                        <div id="midterm_container"></div>
                         <p>Target overall average (enter “0” if you don’t have one): <input type="number" id="goal" min="0" max="100" value="0"></p>
-                        <p>Midterm / Final weighting (%): <input type="number" id="pMidterm" min="0" max="100" value="40" required> 
+                        <div class="weight">
+                        <p class="midterm_title"> Midterm / Final weighting (%):
+                            <div id="pMidterm"></div>
                             <input type="number" id="pFinal" min="0" max="100" value="60" required></p>
+                        </div>
                         <p>Minimum final score required to pass: <input type="number" id="min" min="0" max="100" value="60" required></p>
                         <p><button type="submit">Calculate</button></p>
                     </form>
