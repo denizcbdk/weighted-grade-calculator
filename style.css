@@ -8,6 +8,7 @@ body {
     color: #2b354e;
 }
 
+
 input {
     background-color: #FAFAFA;
     border-style: groove;
@@ -30,13 +31,30 @@ button:hover {
 }
 
 /* For mobile phones up to 600px */
-@media (max-width: 600px) { 
+
+@media (max-width: 600px) {
     #resultList{
         padding: 0;
     }
+
+    .midterm_radio{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #eee;
+        padding: 10px;
+        border-radius: 5px;
+        width: 100%;
+        margin: 0;
+        transform: scale(1.5);
+        margin-left: 3px;
+        margin-bottom: 5px;
+    }
+
     .rTitle{
         padding: 7;
     }
+
     .layout {
         display: flex;
         flex-direction: column;
@@ -44,74 +62,110 @@ button:hover {
         justify-content: center;
         width: 100%;
     }
+
     .actTab {
         width: 80%;
         max-width: 450px;
         padding: 20px;
         margin: 20px auto;
     }
+
     .sidebar {
         display: none;
         width: 0;
         height: 0;
     }
+
     .content {
         width: 100%;
         max-width: 100%;
         margin: 0 auto;
         padding: 0 10px;
     }
+
     button {
         width: 100%;
         font-size: 18px;
         max-width: 100px;
     }
+
     input {
         width: 100%;
         font-size: 18px;
         max-width: 50px;
         text-align: center;
     }
+
     h1 {
         font-size: 22px;
     }
+
     .records {
-    width: 80%;
-    max-width: 450px;
-    padding: 20px;
-    margin: 20px auto;
+        width: 80%;
+        max-width: 450px;
+        padding: 20px;
+        margin: 20px auto;
     }
+
+    .midterm_title{
+        width: 120px;
+    }
+
+
 }
+
 /* For tablet devices up to 1024px */
+
 @media (min-width: 600px) and (max-width: 1024px) {
+
     .layout {
         flex-direction: column;
         padding: 20px;
     }
+
+    .midterm_radio{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #eee;
+        padding: 10px;
+        border-radius: 5px;
+        width: 100%;
+        margin: 0;
+    }
+
     .sidebar {
         display: none;
     }
+
     .content {
         max-width: 700px;
         margin: 0 auto;
     }
+
     button {
         width: 100%;
         font-size: 18px;
         max-width: 100px;
     }
+
     input{
         width: 100%;
         font-size: 18px;
         max-width: 50px;
     }
+
     #resultList {
         padding: 0;
     }
+
     .rTitle {
         padding: 7;
     }
+
 }
+
+
 
 #popup {
     display: none;
@@ -127,11 +181,40 @@ button:hover {
     align-items: center;
 }
 
+
+
 #savedResult {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
+
+
+
+#pMidterm{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#pFinal{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+}
+
+#pMidterm,#pFinal{
+    margin-top: 18px;
+}
+
+
+
+.midterm_radio{
+    accent-color: #262626;
+}
+
+
 
 .popup-style {
     background: #FFFFFF;
@@ -143,6 +226,8 @@ button:hover {
     width: 90%;
     box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
     }
+
+
 
 .close {
     border: none;
@@ -158,9 +243,13 @@ button:hover {
     transition: color 0.5s ease;
 }
 
+
+
 .close:hover {
     color: #2b354e;
 }
+
+
 
 .records{
     margin-top: 20px;
@@ -170,6 +259,8 @@ button:hover {
     background-color: #FFFFFF;
     box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.08);
 }
+
+
 
 .deleteResult {
     background-color: transparent;
@@ -182,10 +273,14 @@ button:hover {
     padding: 2px 5px;
 }
 
+
+
 .deleteResult:hover {
     background-color: red;
     color: white;
 }
+
+
 
 .actTab{
     padding: 20px;
@@ -197,6 +292,9 @@ button:hover {
 }
 
 
+
+
+
 .layout{
     display: flex;
     justify-content: center;
@@ -205,11 +303,15 @@ button:hover {
     padding: 20px 0;
 }
 
+
+
 .content{
     flex-grow: 1;
     max-width: 1000px;
     margin: 0 100px;
 }
+
+
 
 .sidebar {
     width: 200px;
@@ -222,3 +324,10 @@ button:hover {
     height: 800px;
     display: none;
 }
+
+.weight{
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+}
+
