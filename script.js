@@ -1,3 +1,6 @@
+window.onload = function() {
+    updateMidterm();
+    updateWeights();}
 const saved = localStorage.getItem("saved");
 const resultList = document.getElementById("resultList");
     if (saved) {
@@ -16,27 +19,76 @@ const resultList = document.getElementById("resultList");
     
 function checkingRates(event) {
     event.preventDefault();
-    const midtermRate = parseFloat(document.getElementById("pMidterm").value);
+    const count = getMidtermCount();
     const finalRate = parseFloat(document.getElementById("pFinal").value);
+    
+    let midtermRate = 0; 
+    const weights = document.querySelectorAll(".midterm_weight");
+    
+    if (count == 1) {
+        midtermRate = parseFloat(weights[0].value);
+    } else if (count == 2) {
+        midtermRate = parseFloat(weights[0].value) + parseFloat(weights[1].value);
+    } else {
+        midtermRate = parseFloat(weights[0].value) + parseFloat(weights[1].value) + parseFloat(weights[2].value);
+    }
     const totalRate = midtermRate + finalRate;
+    
     if (totalRate !== 100) {
-        alert("The contribution rates are wrong. The total must be 100%.");
+        alert("The contribution rates are wrong. The total must be 100%. Current: " + totalRate);
     } else {
         const results = calculateScore(midtermRate, finalRate);
         showResult(results.requiredScore, results.requiredGoalScore, results.goalScore);
     }
-
 }
 function calculateScore(midtermRate, finalRate) {
-    const midtermScore = parseFloat(document.getElementById("midterm").value)
+
+    const count = getMidtermCount();
+    const midtermScore = document.querySelectorAll(".midterm_input");
+    const weights = document.querySelectorAll('[class^="midterm_weight"]');
     const minimumScore = parseFloat(document.getElementById("min").value)
     const goalScore = parseFloat(document.getElementById("goal").value)
-    const midtermCalculationRate = midtermRate / 100;
     const finalCalculationRate = finalRate / 100;
-    const requiredScore = (minimumScore - midtermScore * midtermCalculationRate) / (finalCalculationRate)
-    let requiredGoalScore = null;
+
+    let requiredScore = 0;
+    let requiredGoalScore = 0;
+
+    if(count == 1 ){
+        let midtermCalculationRate1 = parseFloat(weights[0].value) / 100;
+        requiredScore = (minimumScore - (parseFloat(midtermScore[0].value) * midtermCalculationRate1)) / (finalCalculationRate)
+    }
+
+    if(count == 2 ){
+        let midtermCalculationRate1 = parseFloat(weights[0].value) / 100;
+        let midtermCalculationRate2 = parseFloat(weights[1].value) / 100;
+        requiredScore = (minimumScore - ((parseFloat(midtermScore[0].value) * midtermCalculationRate1) + (parseFloat(midtermScore[1].value) * midtermCalculationRate2))) / (finalCalculationRate)
+    }
+
+    else if(count == 3){ // else kısmını belirginleştirdim ki karışmasın
+        let midtermCalculationRate1 = parseFloat(weights[0].value) / 100;
+        let midtermCalculationRate2 = parseFloat(weights[1].value) / 100;
+        let midtermCalculationRate3 = parseFloat(weights[2].value) / 100;
+        requiredScore = (minimumScore - ((parseFloat(midtermScore[0].value) * midtermCalculationRate1) + (parseFloat(midtermScore[1].value) * midtermCalculationRate2) + (parseFloat(midtermScore[2].value) * midtermCalculationRate3))) / (finalCalculationRate)
+    }
+
     if (goalScore !== 0) {
-        requiredGoalScore = (goalScore - midtermScore * midtermCalculationRate) / (finalCalculationRate)
+        if(count == 1 ){
+            let midtermCalculationRate1 = parseFloat(weights[0].value) / 100;
+            requiredGoalScore = (goalScore - (parseFloat(midtermScore[0].value) * midtermCalculationRate1)) / (finalCalculationRate)
+        }
+
+        if(count == 2 ){
+            let midtermCalculationRate1 = parseFloat(weights[0].value) / 100;
+            let midtermCalculationRate2 = parseFloat(weights[1].value) / 100;
+            requiredGoalScore = (goalScore - ((parseFloat(midtermScore[0].value) * midtermCalculationRate1) + (parseFloat(midtermScore[1].value) * midtermCalculationRate2))) / (finalCalculationRate)
+        }
+
+        else if(count == 3){
+            let midtermCalculationRate1 = parseFloat(weights[0].value) / 100;
+            let midtermCalculationRate2 = parseFloat(weights[1].value) / 100;
+            let midtermCalculationRate3 = parseFloat(weights[2].value) / 100;
+            requiredGoalScore = (goalScore - ((parseFloat(midtermScore[0].value) * midtermCalculationRate1) + (parseFloat(midtermScore[1].value) * midtermCalculationRate2) + (parseFloat(midtermScore[2].value) * midtermCalculationRate3))) / (finalCalculationRate)
+        }
     }
     return {
         requiredScore: requiredScore,
@@ -96,5 +148,36 @@ function deleteSaved(button) {
         localStorage.removeItem("saved");
     } else {
         localStorage.setItem("saved", resultList.innerHTML);
+    }
+}
+
+function getMidtermCount() {
+    return document.querySelector('input[name="midterm_choice"]:checked').value;
+}
+
+function updateMidterm() {
+    const count = getMidtermCount();
+    const midterm_container = document.getElementById("midterm_container");
+    midterm_container.innerHTML = "";
+
+    for(let current_count = 1;current_count<=count;current_count++){
+        const label = (current_count === 1) ? "1st" : (current_count === 2) ? "2nd" : "3rd";
+        midterm_container.innerHTML +=
+        `<p>Your ${label} midterm score: <input type="number" class="midterm_input" min="0" max="100" required></p>`;
+    }
+}     
+
+function updateWeights(){
+    const count = getMidtermCount();
+    const weight_container = document.getElementById("pMidterm");
+    weight_container.innerHTML="";
+
+    const finalRate = parseFloat(document.getElementById("pFinal").value) || 60;
+    const totalMidtermAllowed = 100 - finalRate;
+    const equalWeight = (totalMidtermAllowed / count).toFixed(0);
+
+    for(let current_count = 1;current_count<=count;current_count++){
+        weight_container.innerHTML +=
+    `<input type="number" class="midterm_weight" style="width: 78px; margin-bottom: 8px; margin-right: 5px;" min="0" max="100" value="${equalWeight}" required>`
     }
 }
